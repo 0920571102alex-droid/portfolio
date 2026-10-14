@@ -1,0 +1,754 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>陳俊維 個人網站</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #F1F6FC;
+    --bg-card: #FFFFFF;
+    --fg: #13243A;
+    --fg-secondary: #475569;
+    --fg-muted: #94A3B8;
+    --accent: #1E40AF;
+    --brand: #0B1B3A;
+    --accent-light: #DBEAFE;
+    --accent-bg: #EFF6FF;
+    --border: #DCE6F1;
+    --border-light: #EDF3F9;
+    --shadow: 0 1px 3px rgba(30,58,95,0.07), 0 1px 2px rgba(30,58,95,0.05);
+    --shadow-md: 0 4px 6px rgba(30,58,95,0.07), 0 2px 4px rgba(30,58,95,0.05);
+    --radius: 10px;
+    --font-sans: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+    --font-tc: 'Noto Sans TC', system-ui, sans-serif;
+    color-scheme: light;
+  }
+
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    padding-inline: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .nav-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 0;
+  }
+  .nav-brand {
+    font-family: var(--font-tc);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--brand);
+    white-space: nowrap;
+    padding: 12px 0;
+    margin-right: auto;
+  }
+  .nb-zh { font-weight: 500; font-size: 1.15em; }
+  .nb-en { font-weight: 700; font-family: Arial, Helvetica, sans-serif; }
+  .nav-tabs { display: flex; gap: 0; }
+  .nav-tab {
+    padding: 14px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    font-family: var(--font-tc);
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .nav-tab:hover { color: var(--fg-secondary); }
+  .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+  @media (max-width: 500px) {
+    .nav-brand { font-size: 13px; }
+    .nav-tab { padding: 12px 10px; font-size: 12px; }
+  }
+
+  /* ===== CONTENT ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+  .container { max-width: 820px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* ===== TAB A: 自傳 ===== */
+  .pdf-actions { margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .pdf-open {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: var(--font-tc);
+    padding: 8px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+  }
+  .pdf-open:hover { background: var(--accent-bg); }
+  .pdf-hint { font-size: 12px; color: var(--fg-muted); font-family: var(--font-tc); }
+  .cv-frame {
+    width: 100%;
+    height: 85vh;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    background: #fff;
+    display: block;
+  }
+  @media (max-width: 540px) { .cv-frame { height: 72vh; } }
+
+  /* ===== section ===== */
+  .section-title {
+    font-family: var(--font-tc);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg);
+    margin: 0 0 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+  .section-block { margin-bottom: 48px; }
+  .sub-head {
+    margin: 32px 0 16px;
+    font-family: var(--font-tc);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== publication cards ===== */
+  .pub-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+  }
+  .pub-card:hover { box-shadow: var(--shadow-md); }
+  .pub-number {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .pub-title { font-size: 15px; font-weight: 600; color: var(--fg); line-height: 1.5; }
+  .pub-header { display: flex; align-items: flex-start; gap: 4px; margin-bottom: 8px; }
+  .pub-journal { font-size: 13px; color: var(--accent); font-weight: 500; font-style: italic; margin-bottom: 6px; }
+  .pub-authors { font-size: 12px; color: var(--fg-muted); margin-bottom: 8px; }
+  .pub-authors strong { color: var(--fg-secondary); font-weight: 600; }
+  .pub-status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+  .status-published { background: var(--accent-bg); color: var(--accent); }
+  .status-submitted { background: var(--border-light); color: var(--fg-muted); }
+  .status-inpress { background: #FEF3C7; color: #92400E; }
+
+  /* collapsible (abstract / poster) — auto-size via grid rows */
+  .reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s ease; }
+  .reveal.open { grid-template-rows: 1fr; }
+  .reveal > .reveal-wrap { overflow: hidden; min-height: 0; }
+  .abstract-inner {
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--fg-secondary);
+    line-height: 1.75;
+  }
+  .abstract-inner strong { color: var(--fg); font-weight: 600; }
+  .toggle-btn {
+    font-size: 12px;
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 10px;
+    display: inline-block;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-tc);
+  }
+  .toggle-btn:hover { text-decoration: underline; }
+
+  /* ===== presentation cards ===== */
+  .pres-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .pres-top { display: flex; gap: 16px; align-items: flex-start; }
+  .pres-photo {
+    width: 180px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: zoom-in;
+    border: 1px solid var(--border);
+  }
+  .pres-photo img { width: 100%; height: 135px; object-fit: cover; display: block; }
+  .pres-photo .cap {
+    font-size: 10.5px;
+    color: var(--fg-muted);
+    padding: 4px 8px;
+    background: var(--bg-card);
+    font-family: var(--font-tc);
+    text-align: center;
+  }
+  @media (max-width: 540px) {
+    .pres-top { flex-direction: column; }
+    .pres-photo { width: 100%; }
+    .pres-photo img { height: 210px; }
+  }
+  .pres-body { flex: 1; min-width: 0; }
+  .pres-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .pres-body h4 { font-size: 14px; font-weight: 600; margin: 0 0 4px; color: var(--fg); line-height: 1.45; }
+  .pres-body .zh { font-size: 12.5px; color: var(--fg-secondary); font-family: var(--font-tc); margin: 0 0 6px; line-height: 1.5; }
+  .pres-body .venue { font-size: 14px; font-weight: 500; color: var(--fg-secondary); margin: 0; font-family: var(--font-tc); }
+  .poster-img {
+    width: 100%;
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: zoom-in;
+    background: #fff;
+    display: block;
+  }
+
+  /* ===== TAB C: AI 應用 ===== */
+  .lead-tc { font-family: var(--font-tc); font-size: 13.5px; color: var(--fg-secondary); line-height: 1.8; margin: 0 0 24px; }
+  .feat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .feat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0.6; }
+  .feat-head { display: flex; align-items: center; gap: 12px; }
+  .feat-head h3 { font-size: 15px; font-weight: 700; margin: 0; color: var(--fg); font-family: var(--font-tc); }
+  .ai-icon { width: 40px; height: 40px; border-radius: 8px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ai-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ai-card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+  .ai-tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--accent-bg); color: var(--accent); font-weight: 500; }
+  .feat-desc { font-size: 13px; color: var(--fg-secondary); line-height: 1.75; margin: 10px 0 0; font-family: var(--font-tc); }
+  .feat-media { margin-top: 14px; display: grid; gap: 12px; }
+  .feat-media { max-width: 440px; }
+  .feat-media.two { grid-template-columns: 1fr 1fr; max-width: 560px; }
+  @media (max-width: 560px) { .feat-media.two { grid-template-columns: 1fr; } }
+  .figbox { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
+  .figbox img { width: 100%; display: block; cursor: zoom-in; }
+  .figcap { font-size: 11px; color: var(--fg-muted); padding: 7px 10px; font-family: var(--font-tc); background: var(--bg-card); border-top: 1px solid var(--border-light); line-height: 1.55; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 24px 16px; font-size: 12px; color: var(--fg-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+
+  /* Lightbox */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.88); justify-content: center; align-items: center; cursor: zoom-out; padding: 16px; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 96%; max-height: 92vh; object-fit: contain; border-radius: 4px; }
+  .cv-pages { display:flex; flex-direction:column; gap:16px; max-width:860px; margin:0 auto; }
+  .cv-page { width:100%; height:auto; display:block; background:#fff; border:1px solid var(--border); border-radius:6px; box-shadow:var(--shadow); }
+  .cv-page { cursor: zoom-in; }
+  .cv-hint { text-align:center; font-size:12px; color:var(--fg-muted); font-family:var(--font-tc); margin:12px 0 0; }
+  .cvzoom { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.9); overflow:auto; -webkit-overflow-scrolling:touch; cursor:zoom-out; }
+  .cvzoom.open { display:block; }
+  .cvzoom img { display:block; margin:0 auto; width:100%; max-width:1500px; height:auto; }
+  .cvzoom-close { position:fixed; top:calc(10px + env(safe-area-inset-top,0px)); right:14px; z-index:1001; border:0; border-radius:20px; padding:6px 14px; font-size:13px; background:rgba(255,255,255,0.92); color:#0B1B3A; cursor:pointer; font-family:var(--font-tc); }
+</style>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="nb-zh">陳俊維</span> <span class="nb-en">Chen, Jun-Wei</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="intro">自傳</button>
+      <button class="nav-tab" data-tab="works">學術發表</button>
+      <button class="nav-tab" data-tab="ai">AI 應用</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== TAB A: 自傳 (v34 PDF) ===== -->
+<div class="page active" id="page-intro">
+  <div class="container">
+    <div class="cv-pages">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/eeee996f482df9e5d7bd7484d8b7c133" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/3f24ccda31c79ac8cffa3d15e22631c3" alt="自傳 v34 第 1 頁" loading="eager" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/a8d6e449d437d3f2884f7dbd2844454f" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/88d33a26f9d5f364ebc0927fe8a1f0a0" alt="自傳 v34 第 2 頁" loading="eager" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/743be2a56e622bcb09a4a0790fde653d" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/be03349744ee1c1b42b25e477598502f" alt="自傳 v34 第 3 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/b1612fb7e1ea42339232ba7d7c9a7e13" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/1c82df60922743524475db38e9a0e567" alt="自傳 v34 第 4 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/b1e1c4a99c2b2985e3f811eea7d9fda5" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/0c4f021ba918acd0bd2a23248e4a57ca" alt="自傳 v34 第 5 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/e66b1ac231c6d935ff99cae2c1a2fd48" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/a57627eb8b3a9315c616b6631acc99f6" alt="自傳 v34 第 6 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/6450c998f76ac5c5b2b2dd5913717487" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/a64b0eea008f322bef9c2d2ba554a565" alt="自傳 v34 第 7 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/fc0089190adab83d23b497aaac48dc16" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/e4a9170c930ff9d3bbf769e43ff52333" alt="自傳 v34 第 8 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/0af1f73d5a68bb2785ea076fd27a4f2f" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/def7f13fb9c7ae78dda492ca04ae52ff" alt="自傳 v34 第 9 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/417fb3480f0f837fa5381432e798fb64" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/3f3b9a21d5e02e6b1582657b3b34afcd" alt="自傳 v34 第 10 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/1564833435930c7536e0609e2e4bd62a" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/f4255bf4fdcd3fe52ad4abcf0f0bfded" alt="自傳 v34 第 11 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/a762898725183b9cbb08a8e9510e820d" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/c4d85d61b843ef9ea975058a616e19c3" alt="自傳 v34 第 12 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    <img class="cv-page" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/ecb477b261a40c72071ba08d145c08cd" data-full="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/a70b494a31c375f9acda0879b9702889" alt="自傳 v34 第 13 頁" loading="lazy" onclick="openCvZoom(this.dataset.full)">
+    </div>
+    <p class="cv-hint">點選任一頁可放大查看高解析版本</p>
+  </div>
+</div>
+
+<!-- ===== TAB B: 學術發表 ===== -->
+<div class="page" id="page-works">
+  <div class="container">
+
+    <div class="section-block">
+      <div class="section-title">學術期刊 Publications</div>
+
+      <!-- #1 PCV Review — Semin Ophthalmol — Published online 2026-10-11 -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">1</span>
+          <span class="pub-title">The Clinical Significance of Polypoidal Lesion Regression in Polypoidal Choroidal Vasculopathy - A Review</span>
+        </div>
+        <div class="pub-journal">Seminars in Ophthalmology. Published online October 11, 2026</div>
+        <div class="pub-authors"><strong>Chen JW*</strong>, Hwang DK*, Hsieh YT, Wu WC, Chen SJ<br><span style="font-size:11px;color:#94A3B8;">*Co-first authors</span></div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Importance:</strong> Polypoidal choroidal vasculopathy (PCV) is a distinct pachychoroid disease where persistent polypoidal lesions serve as the primary substrate for recurrence and hemorrhage. While standard anti-vascular endothelial growth factor (anti-VEGF) monotherapy effectively manages exudation, it often fails to achieve complete anatomical closure—a phenomenon termed the "PCV paradox." This review evaluates the prognostic significance of complete polypoidal lesion regression and synthesizes evidence on the efficacy of various therapeutic strategies in achieving durable anatomical clearance.<br><br>
+          <strong>Observations:</strong> Multimodal imaging, led by indocyanine green angiography (ICGA) as the reference standard, has refined PCV diagnostic criteria and nomenclature. Evidence from landmark trials demonstrates that combination therapy (anti-VEGF plus photodynamic therapy) achieves significantly higher complete polypoidal lesion regression rates (up to 77.8%) and lower injection burdens compared to monotherapy. Although newer agents like faricimab and high-dose aflibercept show improved anatomical outcomes with monotherapy, complete regression remains a challenging endpoint. Persistent lesions remain the primary source of long-term instability and severe hemorrhagic complications.<br><br>
+          <strong>Conclusions and Relevance:</strong> Achieving complete polypoidal lesion regression is a critical clinical endpoint for ensuring long-term disease stability and reducing the risk of catastrophic recurrence. Therapeutic strategies should prioritize anatomical closure—through combination therapy or high-potency agents—rather than focusing solely on exudative resolution, to optimize long-term visual prognosis.
+        </div></div></div>
+      </div>
+
+      <!-- #2 Sci Rep -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">2</span>
+          <span class="pub-title">Predicting Atropine Treatment Response Heterogeneity in Pediatric Myopia Using Explainable Machine Learning: An On-Treatment Longitudinal Monitoring Framework</span>
+        </div>
+        <div class="pub-journal">Scientific Reports. 2026 Aug</div>
+        <div class="pub-authors"><strong>Chen JW</strong>, Yu CH, Liu TC, Wu TE, Lu CJ</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Purpose:</strong> To establish an explainable machine learning framework to monitor longitudinal refractive changes in children receiving atropine therapy and visualize individual treatment-response heterogeneity.<br><br>
+          <strong>Methods:</strong> This retrospective cohort included 1,545 eyes from pediatric patients treated with 0.1%–1.0% atropine at a tertiary center. Eight cumulative clinical and treatment-related features—baseline spherical equivalent (SE), intraocular pressure (IOP), IOP change, age, sex, treatment duration, cumulative dosage, and average monthly dosage—were analyzed. Four machine learning models (Lasso, CART, XGBoost, Random Forest) were compared using 100 repeated runs, and the best-performing model was interpreted with SHapley Additive exPlanations (SHAP) to quantify global and individual feature contributions.<br><br>
+          <strong>Results:</strong> Random Forest achieved the lowest average error metrics (RMSE 0.531 ± 0.030; MAE 0.388 ± 0.016). SHAP identified baseline SE as the most influential determinant of final refractive change, followed by cumulative dosage and average monthly dosage. Negative SHAP contributions from higher doses captured clinician-driven titration patterns (confounding by indication) rather than a causal hazard. Case-level SHAP waterfall plots successfully mapped response profiles, distinguishing effective stabilization in mild baseline myopia from pharmacologic saturation in high baseline myopia.<br><br>
+          <strong>Conclusions:</strong> Integrating Random Forest with SHAP delivers transparent, high-fidelity monitoring of atropine response in pediatric myopia. Rather than relying solely on static baseline predictors, this explainable framework leverages accumulated clinical process metrics to bridge data science and clinical reasoning. It provides a robust tool for longitudinal treatment tracking, retrospective clinical audit, and early risk stratification.
+        </div></div></div>
+      </div>
+
+      <!-- #3 JCMA -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">3</span>
+          <span class="pub-title">Exploratory Modeling of Myopic Progression in Children Receiving Atropine: Insights from a Multivariate Adaptive Regression Splines (MARS) Approach</span>
+        </div>
+        <div class="pub-journal">Journal of the Chinese Medical Association (JCMA). 2026;89(9):669–675</div>
+        <div class="pub-authors"><strong>Chen JW</strong>, Yu CH, Liu TC, Lu CJ, Wu TE</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Background:</strong> The global surge in pediatric myopia has driven the widespread use of atropine for myopia control. While its efficacy is well-documented, treatment response varies widely among individuals, making it difficult to determine optimal dosing strategies. In clinical practice, tailoring atropine therapy to each child's risk of myopic progression is a key concern. Treatment-related variables such as the degree of refractive error, treatment duration, and dosage intensity often influence therapeutic outcomes, but their interactions may vary across individuals.<br><br>
+          <strong>Method:</strong> This retrospective study analyzed data from 1,545 eyes of children treated with topical atropine. We applied Multivariate Adaptive Regression Splines (MARS), a flexible machine learning model capable of identifying complex, non-linear patterns and clinical 'breakpoints'. Eight clinical factors—baseline spherical equivalent and intraocular pressure, intraocular pressure changes, treatment duration, cumulative and average monthly atropine dosages, age and gender—were included. The model's predictive accuracy was validated and compared against standard linear regression (LASSO).<br><br>
+          <strong>Results:</strong> MARS identified baseline spherical equivalent, cumulative dosage, and average monthly dosage as key factors associated with myopic progression. Baseline spherical equivalent emerged as the most critical factor, reaffirming its significant role in clinical risk stratification. A negative association was observed between cumulative dosage and treatment outcome. In addition, a non-linear, V-shaped relationship was found for average monthly dosage, with a breakpoint near 11.66 mg/month, suggesting that treatment efficacy varies across dosage ranges, with potentially better control achieved at lower and higher intensities compared to mid-range dosing.<br><br>
+          <strong>Conclusion:</strong> This study illustrates the potential of a machine learning model to explore treatment outcomes of atropine in pediatric myopia. The machine learning model revealed clinically relevant non-linear dosage effects between atropine exposure and myopia progression, allowing for more precise risk assessment and tailored therapeutic interventions in pediatric myopia.
+        </div></div></div>
+      </div>
+
+      <!-- #4 Graefes — Keratoconus -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">4</span>
+          <span class="pub-title">Changes in Tomographic Parameters Across Different Wearing and Cessation Periods of Apical Clearance-Fitted Rigid Gas-Permeable Contact Lenses in Keratoconus</span>
+        </div>
+        <div class="pub-journal">Graefe's Archive for Clinical and Experimental Ophthalmology. 2026 Jun 29</div>
+        <div class="pub-authors">Hsiao FC, Chen YN, <strong>Chen JW</strong>, Tsai TH, Kang EY, Hung N, Liu CF, Hsiao CH, Lee JS, Lin KK</div>
+        <span class="pub-status status-published">Published</span>
+      </div>
+
+      <!-- #5 GLP-1 NAION -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">5</span>
+          <span class="pub-title">Glucagon-like Peptide-1 Receptor Agonists and the Risk of Nonarteritic Anterior Ischemic Optic Neuropathy: Evidence from a Global Real-World Cohort</span>
+        </div>
+        <div class="pub-journal">Diabetes &amp; Metabolism. 2026;52(2):101740</div>
+        <div class="pub-authors"><strong>Chen JW</strong>, Yu FT, Chen HA, Huang TF, Chen HS, Wu TE</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Aims:</strong> To evaluate whether GLP-1 RA therapy is associated with an increased risk of NAION in a large, diverse real-world population.<br><br>
+          <strong>Methods:</strong> This retrospective cohort study utilized the TriNetX U.S. Collaborative Network from 2015 to 2024. Adults (≥18 years) with type 2 diabetes mellitus (T2DM) were identified and grouped as GLP-1 RA users versus other antidiabetic users and GLP-1 RA users versus sodium-glucose cotransporter-2 inhibitors (SGLT-2i) users. Patients with preexisting optic neuropathy or severe ocular disease were excluded. Propensity score matching (1:1) was applied to balance baseline characteristics. The primary outcome was incident NAION, defined by ICD-10 codes. Cox proportional hazards models and Kaplan–Meier analyses were used to estimate hazard ratios (HRs) and cumulative probabilities.<br><br>
+          <strong>Results:</strong> After matching, 799,036 GLP-1 RA users were compared with 799,036 other antidiabetic users, and 429,985 GLP-1 RA users were compared with 429,985 SGLT-2i users. Over 9 years, GLP-1 RA users showed higher cumulative NAION incidence vs other agents (0.21% vs 0.17%; HR 1.38; 95% CI, 1.23–1.55) and vs SGLT-2i users (0.20% vs 0.20%; HR 1.30; 95% CI, 1.11–1.52). Kaplan–Meier curves demonstrated consistent early separation favoring higher risk among GLP-1 RA users. Sensitivity analyses yielded similar patterns.<br><br>
+          <strong>Conclusions:</strong> GLP-1 RA therapy was associated with a modest but statistically significant increased risk of NAION. While the absolute risk remains low, clinicians should consider ophthalmic risk assessment—particularly in patients with anatomical susceptibility or vascular risk factors—as GLP-1 RA use expands for diabetes and obesity management. Further mechanistic and prospective research is warranted.
+        </div></div></div>
+      </div>
+
+      <!-- #6 Psoriasis DR -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">6</span>
+          <span class="pub-title">Psoriasis and Risk of Diabetic Retinopathy in Patients with Type 2 Diabetes Mellitus</span>
+        </div>
+        <div class="pub-journal">Diabetes Research and Clinical Practice. 2025 Sep</div>
+        <div class="pub-authors">Yueh MP, Kao SK, <strong>Chen JW</strong>, Huang JC, Chen HS, Wu TE</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Aims:</strong> To assess the risk of diabetic retinopathy (DR) among patients with type 2 diabetes mellitus (T2DM) who had a prior diagnosis of psoriasis, compared with those without psoriasis.<br><br>
+          <strong>Methods:</strong> This retrospective cohort study utilized the TriNetX database. 85,691 patients with T2DM and comorbid psoriasis and propensity-score matched 85,691 patients with T2DM without psoriasis were analyzed. The primary outcome was the risk of DR. Secondary outcomes included the risks of vision-threatening DR (VTDR), non-proliferative DR (NPDR) and its severity gradations, proliferative DR (PDR), and diabetic macular edema (DME). Cox proportional hazards models were used to estimate hazard ratios (HRs).<br><br>
+          <strong>Results:</strong> Psoriasis group had higher risks of DR (HR [95% CI] = 2.111 [1.871, 2.383]), VTDR (2.424 [1.937, 3.034]), NPDR (2.152 [1.854, 2.497]), mild NPDR (2.082 [1.765, 2.457]), moderate NPDR (2.848 [2.000, 4.056]), PDR (2.622 [1.753, 3.922]), and DME (2.312 [1.794, 2.981]), but not severe NPDR.<br><br>
+          <strong>Conclusions:</strong> Psoriasis is associated with an increased risk of DR in patients with T2DM, highlighting the need for heightened clinical vigilance regarding DR in patients with T2DM and psoriasis.
+        </div></div></div>
+      </div>
+
+      <!-- #7 Decision tree -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">7</span>
+          <span class="pub-title">Decision Tree Modeling to Predict Myopia Progression in Children Treated with Atropine: Toward Precision Ophthalmology</span>
+        </div>
+        <div class="pub-journal">Diagnostics. 2025;15(16):2096</div>
+        <div class="pub-authors"><strong>Chen JW</strong>, Lu CJ, Yu CH, Liu TC, Wu TE</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Background/Objectives:</strong> Myopia is a growing global health concern, especially among school-aged children in East Asia. Topical atropine is a key treatment for pediatric myopia control, but individual responses vary, with some children showing rapid progression despite higher doses. This retrospective observational study aims to develop an interpretable machine learning model to predict individualized treatment responses and support personalized clinical decisions, based on data collected over a 3-year period without a control group.<br><br>
+          <strong>Methods:</strong> A total of 1,545 pediatric eyes treated with topical atropine for myopia control at a single tertiary medical center are analyzed. Classification and regression tree (CART) is constructed to predict changes in spherical equivalent (SE) and identify influencing risk factors. These factors are mainly received treatments for myopia including atropine dosage records, treatment duration, and ophthalmic examinations. Furthermore, decision rules that closely resemble the clinical diagnosis process are provided. The performance of CART is evaluated by comparing with the benchmark model of least absolute shrinkage and selection operator regression (Lasso).<br><br>
+          <strong>Results:</strong> Both the CART and Lasso models demonstrated comparable predictive performance. The CART model identified baseline SE as the primary determinant of myopia progression. Children with a baseline SE more negative than −3.125 D exhibited greater myopic progression, particularly those with prolonged treatment duration and higher cumulative atropine dosage.<br><br>
+          <strong>Conclusions:</strong> Baseline SE has been identified as the key factor affecting SE difference. The generated decision rules from CART demonstrate the use of explainable machine learning in precision myopia management.
+        </div></div></div>
+      </div>
+
+      <!-- #8 Medicina -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">8</span>
+          <span class="pub-title">The Potential of SHAP and Machine Learning for Personalized Explanations of Influencing Factors in Myopic Treatment for Children</span>
+        </div>
+        <div class="pub-journal">Medicina. 2024;61(1):16</div>
+        <div class="pub-authors"><strong>Chen JW</strong>, Chen HA, Liu TC, Wu TE, Lu CJ</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Background and Objectives:</strong> The rising prevalence of myopia is a significant global health concern. Atropine eye drops are commonly used to slow myopia progression in children, but their long-term use raises concern about intraocular pressure (IOP). This study uses SHapley Additive exPlanations (SHAP) to improve the interpretability of machine learning (ML) model predicting end IOP, offering clinicians explainable insights for personalized patient management.<br><br>
+          <strong>Materials and Methods:</strong> This retrospective study analyzed data from 1,191 individual eyes of 639 boys and 552 girls with myopia treated with atropine. The average age of the whole group was 10.6 ± 2.5 years. Data were collected from clinical records, including demographic information, IOP measurements, and atropine treatment details. The patients were divided into two subgroups based on a baseline IOP of 14 mmHg. ML models, including Lasso, CART, XGB, and RF, were developed to predict the end IOP value. Then, the best-performing model was further interpreted using SHAP values.<br><br>
+          <strong>Results:</strong> RF showed the best performance, with superior error metrics in both subgroups. The interpretation of RF with SHAP revealed that age and the recruitment duration of atropine consistently influenced IOP across subgroups, while other variables had varying effects. SHAP values also offer insights, helping clinicians understand how different factors contribute to predicted IOP value in individual children.<br><br>
+          <strong>Conclusions:</strong> SHAP provides an alternative approach to understand the factors affecting IOP in children with myopia treated with atropine. Its enhanced interpretability helps clinicians make informed decisions, improving the safety and efficacy of myopia management. This study demonstrates the potential of combining SHAP with ML models for personalized care in ophthalmology.
+        </div></div></div>
+      </div>
+
+      <!-- #9 JPM -->
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">9</span>
+          <span class="pub-title">Identifying and Exploring the Impact Factors for Intraocular Pressure Prediction in Myopic Children with Atropine Control Utilizing Multivariate Adaptive Regression Splines</span>
+        </div>
+        <div class="pub-journal">Journal of Personalized Medicine. 2024;14(1):125</div>
+        <div class="pub-authors">Wu TE, <strong>Chen JW</strong>, Liu TC, Yu CH, Jhou MJ, Lu CJ</div>
+        <span class="pub-status status-published">Published</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Purpose:</strong> The treatment of childhood myopia often involves the use of topical atropine, which has been demonstrated to be effective in decelerating the progression of myopia. It is crucial to monitor intraocular pressure (IOP) to ensure the safety of topical atropine. This study aims to identify the optimal machine learning IOP-monitoring module and establish a precise baseline IOP as a clinical safety reference for atropine medication.<br><br>
+          <strong>Methods:</strong> Data from 1,545 eyes of 1,171 children receiving atropine for myopia were retrospectively analyzed. Nineteen variables including patient demographics, medical history, refractive error, and IOP measurements were considered. The data were analyzed using a multivariate adaptive regression spline (MARS) model to analyze the impact of different factors on the End IOP.<br><br>
+          <strong>Results:</strong> The MARS model identified age, baseline IOP, End Spherical, duration of previous atropine treatment, and duration of current atropine treatment as the five most significant factors influencing the End IOP. The outcomes revealed that the baseline IOP had the most significant effect on final IOP, exhibiting a notable knot at 14 mmHg. When the baseline IOP was equal to or exceeded 14 mmHg, there was a positive correlation between atropine use and End IOP.<br><br>
+          <strong>Conclusions:</strong> MARS model demonstrates a better ability to capture nonlinearity than classic multiple linear regression for predicting End IOP. It is crucial to acknowledge that administrating atropine may elevate intraocular pressure when the baseline IOP exceeds 14 mmHg. These findings offer valuable insights into factors affecting IOP in children undergoing atropine treatment for myopia.
+        </div></div></div>
+      </div>
+
+      <!-- Submitted -->
+      <div class="sub-head">投稿進行中 Under Review</div>
+
+      <div class="pub-card">
+        <div class="pub-header"><span class="pub-number">10</span>
+          <span class="pub-title">Early Versus Deferred Panretinal Photocoagulation in Patients With Severe Diabetic Retinopathy and Diabetic Macular Oedema Receiving Anti-VEGF Therapy</span>
+        </div>
+        <div class="pub-journal">Eye</div>
+        <div class="pub-authors"><strong>Chen JW</strong>, Wu WC, Hwang YS, Lai CC, Chen KJ, Kang EY, Chen YH, Chao AN, Chou HD</div>
+        <span class="pub-status status-submitted">Submitted</span>
+        <button class="toggle-btn" data-closed="▸ Abstract" data-open="▾ 收起 Abstract" onclick="toggleReveal(this)">▸ Abstract</button>
+        <div class="reveal"><div class="reveal-wrap"><div class="abstract-inner">
+          <strong>Background:</strong> Proliferative diabetic retinopathy (PDR) and severe non-PDR complicated by diabetic macular oedema (DME) are high-risk conditions traditionally treated with prompt anti-VEGF and panretinal photocoagulation (PRP). The present study compared initial combination therapy—PRP initiated within 6 months after the start of anti-VEGF therapy—with deferred combination therapy—PRP initiated after 6 months.<br><br>
+          <strong>Methods:</strong> This single-centre, retrospective study included eyes with PDR or severe non-PDR and centre-involving DME. All eyes received at least three anti-VEGF injections and underwent one PRP session. Patients were stratified into initial and deferred groups. The primary outcomes were best-corrected visual acuity and central foveal thickness at 18 months.<br><br>
+          <strong>Results:</strong> Eighty-eight eyes were analysed. At 6 months, the deferred group had better visual acuity than did the initial group (0.44 vs. 0.67 logMAR; P = 0.004). Central foveal thickness was lower in the deferred group (297 vs. 322 μm; P = 0.030). This visual advantage persisted at 18 months (0.47 vs. 0.76 logMAR; P = 0.023). Although the deferred group required significantly fewer PRP sessions (1.50 vs. 2.45; P &lt; 0.001), injection counts were similar (6.48 vs. 5.80; P = 0.097). The rate of adverse events did not differ significantly between the groups.<br><br>
+          <strong>Conclusions:</strong> Deferring PRP until after 6 months of anti-VEGF therapy improves visual and anatomical outcomes, limits photocoagulation sessions, and maintains safety in patients with DME and advanced diabetic retinopathy.
+        </div></div></div>
+      </div>
+    </div>
+
+    <!-- Presentations -->
+    <div class="section-block">
+      <div class="section-title">口頭報告與壁報 Presentations</div>
+
+      <!-- ARVO 2026 Poster -->
+      <div class="pres-item">
+        <div class="pres-body">
+          <span class="pres-badge">POSTER</span>
+          <h4>Diabetic Retinopathy with DME: Initial Combo (Anti-VEGF + Prompt Laser) vs Deferred Combo</h4>
+          <p class="venue">2026 ARVO Annual Meeting ｜ Poster #0061</p>
+          <img class="poster-img" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/62120c3b23df7b244d7693a09e7b9a4a" alt="ARVO poster" loading="lazy" onclick="openLightbox(this.src)">
+        </div>
+      </div>
+
+      <!-- Oral — 諾貝爾大健康論壇 -->
+      <div class="pres-item">
+        <div class="pres-top">
+          <div class="pres-photo" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/bb70abb92ef847a90dfd7f2bf638d36e')">
+            <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/bb70abb92ef847a90dfd7f2bf638d36e" alt="諾貝爾大健康論壇" loading="lazy" style="object-position:50% 12%;">
+            <div class="cap">Symposium 5 講師</div>
+          </div>
+          <div class="pres-body">
+            <span class="pres-badge">ORAL</span>
+            <h4>Decision Tree Modeling in Myopia Control</h4>
+            <p class="venue">2026 諾貝爾大健康論壇（19th Nobel Health Care Forum）｜ Symposium 5 口頭報告</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO-058 — 年度醫學會 -->
+      <div class="pres-item">
+        <div class="pres-top">
+          <div class="pres-photo" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/4746186cb9c4d953a56fcba5cb98bf98')">
+            <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/4746186cb9c4d953a56fcba5cb98bf98" alt="年度醫學會 e-poster" loading="lazy">
+            <div class="cap">中華民國眼科醫學會 E-Poster</div>
+          </div>
+          <div class="pres-body">
+            <span class="pres-badge">E-POSTER</span>
+            <h4>Prediction of Atropine Response in Pediatric Myopia Using CART-Based Decision Tree Modeling</h4>
+            <p class="zh">使用 CART 決策樹模型預測兒童近視患者對 Atropine 的治療反應</p>
+            <p class="venue">114 年第 66 次年度醫學會（中華民國眼科醫學會）｜ PO-058</p>
+            <button class="toggle-btn" data-closed="▸ 查看海報 View Poster" data-open="▾ 收起海報" onclick="toggleReveal(this)">▸ 查看海報 View Poster</button>
+            <div class="reveal"><div class="reveal-wrap">
+              <img class="poster-img" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/9d8b2407fe4c1f94b0310a7c108863c4" alt="PO-058 poster" loading="lazy" onclick="openLightbox(this.src)">
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO-070 — 年中研討會 -->
+      <div class="pres-item">
+        <div class="pres-top">
+          <div class="pres-photo" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/28700cceb635414143c1760367796b44')">
+            <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/28700cceb635414143c1760367796b44" alt="年中研討會 e-poster" loading="lazy">
+            <div class="cap">眼科聯合年中學術研討會 E-Poster</div>
+          </div>
+          <div class="pres-body">
+            <span class="pres-badge">E-POSTER</span>
+            <h4>Machine Learning Applications in Predicting Myopia Progression in Pediatric Patients Treated with Atropine</h4>
+            <p class="zh">運用機器學習技術分析近視兒童以阿托品治療之近視進展的預測因子</p>
+            <p class="venue">2025 眼科聯合年中學術研討會 ｜ PO-070</p>
+            <button class="toggle-btn" data-closed="▸ 查看海報 View Poster" data-open="▾ 收起海報" onclick="toggleReveal(this)">▸ 查看海報 View Poster</button>
+            <div class="reveal"><div class="reveal-wrap">
+              <img class="poster-img" src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/b816fdbe770de38663455c132904ff79" alt="PO-070 poster" loading="lazy" onclick="openLightbox(this.src)">
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== TAB C: AI 應用 ===== -->
+<div class="page" id="page-ai">
+  <div class="container">
+    <div class="section-title">AI 工具應用於醫學研究</div>
+    <p class="lead-tc">以下為我在研究與學習過程中，實際運用 AI 工具產出的成品。所有 AI 輔助內容皆經人工審核與校訂後定稿，確保資料正確性與臨床嚴謹度。</p>
+
+    <!-- 0 證照 -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg></div>
+        <h3>AI 應用規劃師證照</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">2025</span><span class="ai-tag">AI 應用規劃師</span></div>
+      <p class="feat-desc">2025 年完成 AI 應用規劃師培訓並取得證照，系統性學習 AI 工具的應用與規劃，並將所學實際用於以下的研究、學習與網站製作。</p>
+      <div class="feat-media" style="max-width:260px">
+        <div class="figbox" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/e29374355a85d86de8a2bfee7777b013')">
+          <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/e29374355a85d86de8a2bfee7777b013" alt="AI 應用規劃師證照" loading="lazy">
+          <div class="figcap">AI 應用規劃師證照（2025）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1 文獻探索 → PCV Table 1 -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg></div>
+        <h3>研究發想與文獻探索</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">Claude</span><span class="ai-tag">ChatGPT</span></div>
+      <p class="feat-desc">以 AI 協助彙整近年主要臨床試驗、快速定位 research gap，再由我逐篇核對後整理成文獻比較表。下圖為 PCV Review 的 Table 1，橫跨 EVEREST、PLANET、PULSAR、SALWEEN 等十餘項試驗之治療成效整合。</p>
+      <div class="feat-media">
+        <div class="figbox" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/d25574e69e3fab570a06ce67dc322b05')">
+          <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/d25574e69e3fab570a06ce67dc322b05" alt="PCV Review Table 1" loading="lazy">
+          <div class="figcap">PCV Review・Table 1｜主要臨床試驗之 complete polypoidal lesion regression 比較表（Semin Ophthalmol, 2026）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 統計分析 → PDR/DME figures & tables -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg></div>
+        <h3>統計分析與程式碼輔助</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">Python</span><span class="ai-tag">pandas</span><span class="ai-tag">SciPy</span></div>
+      <p class="feat-desc">於 PDR／DME 研究中，以 AI 輔助撰寫 Python 程式碼完成統計分析（Welch's t-test、Mann-Whitney U test）與資料視覺化，產出論文中的 figures 與 tables。以下為研究的治療時程圖與 BCVA 長期趨勢圖。</p>
+      <div class="feat-media two">
+        <div class="figbox" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/4b2e2ca6fb4846a38558978284401014')">
+          <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/4b2e2ca6fb4846a38558978284401014" alt="PDR DME Figure 1" loading="lazy">
+          <div class="figcap">Figure 1｜Initial vs Deferred 兩組 anti-VEGF／PRP 治療時程</div>
+        </div>
+        <div class="figbox" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/874f7c8326cd8ffe8d9c789433b82f80')">
+          <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/874f7c8326cd8ffe8d9c789433b82f80" alt="PDR DME Figure 2" loading="lazy">
+          <div class="figcap">Figure 2｜BCVA 長期趨勢（95% CI），*P 標示組間顯著差異</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 圖表製作 → PCV Figure 3 (Google Antigravity) -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>學術圖表製作</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">Google Antigravity</span></div>
+      <p class="feat-desc">以 Google Antigravity 協助生成圖表架構與排版，再由我逐一核對各試驗數據後定稿。下圖為 PCV Review 的 Figure 3。</p>
+      <div class="feat-media">
+        <div class="figbox" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/3ee37ce76ec5424ed7025fe5b144a962')">
+          <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/3ee37ce76ec5424ed7025fe5b144a962" alt="PCV Review Figure 3" loading="lazy">
+          <div class="figcap">PCV Review・Figure 3｜各試驗 complete polypoidal lesion regression rate 比較圖（Semin Ophthalmol, 2026）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 論文撰寫 -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></div>
+        <h3>論文撰寫與英文潤稿</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">Claude</span><span class="ai-tag">ChatGPT</span></div>
+      <p class="feat-desc">輔助英文文法校正、語句潤飾與 Discussion 段落結構優化，所有內容皆經人工查核確認後定稿。</p>
+    </div>
+
+    <!-- 5 臨床知識整合 → Anki -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <h3>臨床知識整合</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">Anki</span><span class="ai-tag">BCSC</span><span class="ai-tag">Kanski</span></div>
+      <p class="feat-desc">結合 BCSC、Kanski 等眼科教科書製作 Anki 記憶卡片，並運用 AI 協助自動分類與下標籤（auto-tag），建立可長期累積、快速檢索的臨床知識庫。</p>
+      <div class="feat-media">
+        <div class="figbox" onclick="openLightbox('https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/c407db6c00ae3847ce531df67e6f4863')">
+          <img src="https://claude.ai/artifact/H8o9rfbE5TknxL3dRWHCdz/_blob/c407db6c00ae3847ce531df67e6f4863" alt="Anki card" loading="lazy">
+          <div class="figcap">我的 Anki 卡片範例｜PCV 於 OCT 的影像特徵</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 網站製作 -->
+    <div class="feat">
+      <div class="feat-head">
+        <div class="ai-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>個人網站與簡報製作</h3>
+      </div>
+      <div class="ai-card-tags"><span class="ai-tag">Claude</span><span class="ai-tag">HTML/CSS</span></div>
+      <p class="feat-desc">本面試網站使用 Claude 協助架構規劃與前端開發，展示 AI 作為生產力工具在研究以外場景的實際應用。</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  陳俊維 Jun-Wei Chen ｜ PGY · 林口長庚紀念醫院 ｜ alexjunwei1102@gmail.com
+</div>
+
+<!-- Lightbox -->
+<div class="cvzoom" id="cvzoom" onclick="closeCvZoom()"><img id="cvzoom-img" src="" alt=""></div>
+<button class="cvzoom-close" id="cvzoom-close" onclick="closeCvZoom()" style="display:none">✕ 關閉</button>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('page-' + tab.dataset.tab).classList.add('active');
+      window.scrollTo(0, 0);
+    });
+  });
+
+  // Generic collapsible toggle (abstracts & posters)
+  function toggleReveal(btn) {
+    const el = btn.nextElementSibling;
+    const open = el.classList.toggle('open');
+    btn.textContent = open ? btn.dataset.open : btn.dataset.closed;
+  }
+
+  // CV zoom (scrollable, high-res)
+  function openCvZoom(src) {
+    document.getElementById('cvzoom-img').src = src;
+    const z = document.getElementById('cvzoom'); z.classList.add('open'); z.scrollTop = 0;
+    document.getElementById('cvzoom-close').style.display = 'block';
+  }
+  function closeCvZoom() {
+    document.getElementById('cvzoom').classList.remove('open');
+    document.getElementById('cvzoom-close').style.display = 'none';
+  }
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+</script>
+
+
+</body></html>
